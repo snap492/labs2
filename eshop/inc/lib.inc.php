@@ -181,23 +181,27 @@ function selectAllItem() {
 function getOrders(){
    global $link;
    $orders = array();
-      $order = file(ORDERS_LOGS);
+      $order = file('orders.log');
+  
       foreach($order as $val) {
-         list($name, $email, $phone, $address, $orderID, $dt) = explode('|', $val);
+         list($name, $email, $phone, $address, $orderid, $dt) = explode('|', $val);
       $orderinfo=array();
          $orderinfo['name']=$name;
          $orderinfo['email']=$email;
          $orderinfo['phone']=$phone;
          $orderinfo['address']=$address;
-         $orderinfo['orderid']=$orderID;
+         $orderinfo['orderid']=$orderid;
          $orderinfo['dt']=$dt;
-         $sql= mysqli_query($link, "SELECT title, author, pubyear, price, quantity
-                                    FROM orders
-                                    WHERE orderid='$orderID'") ;
-         $goods= mysqli_fetch_all($sql, MYSQLI_ASSOC);
-         mysqli_free_result($sql);
-         $orderinfo['goods']= $goods;
-         $orders[]= $orderinfo;
+         $orderid=trim($orderid);
+        $sql = "SELECT title, author, pubyear,
+                       price, quantity
+                FROM orders
+                WHERE orderid LIKE '$orderid'";
+         $result = mysqli_query($link, $sql) or die(mysqli_errno($link));
+         $goods = mysqli_fetch_all($result, MYSQLI_ASSOC);
+         $orderinfo['goods'] = $goods;
+         $orders[] = $orderinfo;
+         
       }
    return $orders;
 

@@ -21,11 +21,9 @@ foreach ($allOrders as $orders) {
 	<p><b>Телефон</b>:<?=$orders['phone']?> </p>
 	<p><b>Адрес доставки</b>: <?=$orders['address']?></p>
 	<p><b>Дата размещения заказа</b>:<?=$orders['dt']?> </p>
-	<?$cnt = 1;
-	foreach ($orders['goods'] as $goods){
-		var_dump($orders['goods']);
-		?>
+
 <h3>Купленные товары:</h3>
+
 <table border="1" cellpadding="5" cellspacing="0" width="90%">
 <tr>
 	<th>N п/п</th>
@@ -35,6 +33,10 @@ foreach ($allOrders as $orders) {
 	<th>Цена, руб.</th>
 	<th>Количество</th>
 </tr>
+	<?$cnt = 1;
+	foreach ($orders['goods'] as $goods){
+
+		?>
 	<tr>
 	<td><?=$cnt++?></td>
 	<td><?=$goods['title']?></td>
@@ -44,10 +46,11 @@ foreach ($allOrders as $orders) {
 	<td><?=$goods['quantity']?></td>
 </tr>
 
-
+<?
+	}?>
 </table>
 <p>Всего товаров в заказе на сумму:<?=$goods['price']*$goods['quantity']?> руб.</p>
-	<?}
+	<?
 }
 ?>
 </body>
