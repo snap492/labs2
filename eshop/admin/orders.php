@@ -34,23 +34,27 @@ foreach ($allOrders as $orders) {
 	<th>Количество</th>
 </tr>
 	<?$cnt = 1;
-	foreach ($orders['goods'] as $goods){
-
+	foreach ($orders['goods'] as $goods) {
+		$price = $goods['price'];
+		$q = $goods['quantity'];
 		?>
-	<tr>
-	<td><?=$cnt++?></td>
-	<td><?=$goods['title']?></td>
-	<td><?=$goods['author']?></td>
-	<td><?=$goods['pubyear']?></td>
-	<td><?=$goods['price']?>, руб.</td>
-	<td><?=$goods['quantity']?></td>
-</tr>
+		<tr>
+			<td><?= $cnt++ ?></td>
+			<td><?= $goods['title'] ?></td>
+			<td><?= $goods['author'] ?></td>
+			<td><?= $goods['pubyear'] ?></td>
+			<td><?= $goods['price'] ?>, руб.</td>
+			<td><?= $goods['quantity'] ?></td>
+		</tr>
 
-<?
-	}?>
+		<? $sum += $price * $q;
+	}
+	?>
 </table>
-<p>Всего товаров в заказе на сумму:<?=$goods['price']*$goods['quantity']?> руб.</p>
-	<?
+
+<p>Всего товаров в заказе на сумму:<?=$sum?> руб.</p>
+<?php
+	$sum=0;
 }
 ?>
 </body>
