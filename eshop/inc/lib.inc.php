@@ -179,11 +179,25 @@ function selectAllItem() {
     return true;
  }
 function getOrders(){
+   global $link;
    $orders = array();
-   if(file_exists(ORDERS_LOGS)){
       $order = file(ORDERS_LOGS);
       foreach($order as $val) {
          list($name, $email, $phone, $address, $orderID, $dt) = explode('|', $val);
+      $orderinfo=array();
+         $orderinfo['name']=$name;
+         $orderinfo['email']=$email;
+         $orderinfo['phone']=$phone;
+         $orderinfo['address']=$address;
+         $orderinfo['orderid']=$orderID;
+         $orderinfo['dt']=$dt;
+         $sql= mysqli_query($link, "SELECT title, author, pubyear, price, quantity
+                                    FROM orders
+                                    WHERE orderid='$orderID'") ;
+         $goods= mysqli_fetch_all($sql, MYSQLI_ASSOC);
+         mysqli_free_result($sql);
+         $orderinfo['goods']= $goods;
+         $orders[]= $orderinfo;
       }
    return $orders;
 
