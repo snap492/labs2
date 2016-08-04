@@ -20,7 +20,7 @@ $iterationCount = 100;
 $result = '';
 
 if (!$salt)
-	$salt = str_replace('=', '', base64_encode(md5(microtime() . '1FD37EAA5ED9425683326EA68DCD0E59')));
+	$salt = str_replace('=', '', base64_encode(md5(microtime() . '1er37EDfwED942568Hrhh26EA68DCD0E59')));
 
 if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$user = $_POST['user'] ?: $user;
